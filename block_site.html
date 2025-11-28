@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - Block Site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            min-height: 550px;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .welcome-section p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-container {
+            width: 100%;
+        }
+
+        .form-header {
+            margin-bottom: 40px;
+        }
+
+        .form-header h2 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            color: #666;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            margin-bottom: -2px;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .form-content {
+            display: none;
+        }
+
+        .form-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message {
+            display: none;
+            padding: 15px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .welcome-section {
+                padding: 40px 30px;
+            }
+
+            .welcome-section h1 {
+                font-size: 2em;
+            }
+
+            .form-section {
+                padding: 40px 30px;
+            }
+
+            .form-header h2 {
+                font-size: 1.6em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .welcome-section {
+                padding: 30px 20px;
+            }
+
+            .form-section {
+                padding: 30px 20px;
+            }
+
+            .tabs {
+                gap: 10px;
+            }
+
+            .tab {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Hoş Geldiniz!</h1>
+            <p>Hesabınıza giriş yapın veya yeni bir hesap oluşturun. Modern ve güvenli platformumuzda yerinizi alın.</p>
+        </div>
+
+        <div class="form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Hesap</h2>
+                    <p>Devam etmek için bilgilerinizi girin</p>
+                </div>
+
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('login')">Giriş Yap</div>
+                    <div class="tab" onclick="switchTab('register')">Kayıt Ol</div>
+                </div>
+
+                <div id="success-message" class="success-message"></div>
+
+                <div id="login-form" class="form-content active">
+                    <div class="form-group">
+                        <label for="login-email">E-posta</label>
+                        <input type="email" id="login-email" placeholder="ornek@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Şifre</label>
+                        <input type="password" id="login-password" placeholder="Şifrenizi girin" required>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#" onclick="showMessage('Şifre sıfırlama linki e-postanıza gönderildi.'); return false;">Şifremi Unuttum?</a>
+                    </div>
+
+                    <button class="btn" onclick="handleLogin()">Giriş Yap</button>
+                </div>
+
+                <div id="register-form" class="form-content">
+                    <div class="form-group">
+                        <label for="register-name">Ad Soyad</label>
+                        <input type="text" id="register-name" placeholder="Adınız ve soyadınız" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-email">E-posta</label>
+                        <input type="email" id="register-email" placeholder="ornek@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-password">Şifre</label>
+                        <input type="password" id="register-password" placeholder="Güçlü bir şifre oluşturun" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-confirm">Şifre Tekrar</label>
+                        <input type="password" id="register-confirm" placeholder="Şifrenizi tekrar girin" required>
+                    </div>
+
+                    <button class="btn" onclick="handleRegister()">Kayıt Ol</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.tab');
+            const forms = document.querySelectorAll('.form-content');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('login-form').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('register-form').classList.add('active');
+            }
+            
+            hideMessage();
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (!email || !password) {
+                alert('Lütfen tüm alanları doldurun.');
+                return;
+            }
+
+            showMessage('Giriş başarılı! Hoş geldiniz.');
+            
+            setTimeout(() => {
+                document.getElementById('login-email').value = '';
+                document.getElementById('login-password').value = '';
+            }, 1500);
+        }
+
+        function handleRegister() {
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
+
+            if (!name || !email || !password || !confirm) {
+                alert('Lütfen tüm alanları doldurun.');
+                return;
+            }
+
+            if (password !== confirm) {
+                alert('Şifreler eşleşmiyor!');
+                return;
+            }
+
+            if (password.length < 6) {
+                alert('Şifre en az 6 karakter olmalıdır.');
+                return;
+            }
+
+            showMessage('Kayıt başarılı! Hoş geldiniz.');
+            
+            setTimeout(() => {
+                document.getElementById('register-name').value = '';
+                document.getElementById('register-email').value = '';
+                document.getElementById('register-password').value = '';
+                document.getElementById('register-confirm').value = '';
+                switchTab('login');
+            }, 1500);
+        }
+
+        function showMessage(text) {
+            const msg = document.getElementById('success-message');
+            msg.textContent = text;
+            msg.style.display = 'block';
+        }
+
+        function hideMessage() {
+            document.getElementById('success-message').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
